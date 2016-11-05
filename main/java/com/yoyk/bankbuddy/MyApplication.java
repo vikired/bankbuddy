@@ -1,0 +1,67 @@
+package com.yoyk.bankbuddy;
+
+import android.app.Application;
+import android.util.Log;
+
+import com.yoyk.bankbuddy.model.BankList_Model;
+import com.yoyk.bankbuddy.model.Fragment_Model;
+
+public class MyApplication extends Application {
+	private static final String TAG = MyApplication.class.getSimpleName(); 
+	private SQLiteHelper _dbHelper;
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		Log.d(TAG, "onCreate my app");
+	    _dbHelper = new SQLiteHelper(this);
+	}
+	public static BankList_Model[] getBankList()
+	{
+		BankList_Model[] list=new BankList_Model[]{
+				new BankList_Model("1","SBI","adf","asdf","sdf","dfd"),
+				new BankList_Model("2","ICICI","adf","asdf","sdf","dfd"),
+				new BankList_Model("3","HDFC","adf","asdf","sdf","dfd")
+		};
+		return list;
+	}
+	public static BankList_Model[] getOtherBankList()
+	{
+		BankList_Model[] list=new BankList_Model[]{
+				new BankList_Model("1","IOB","adf","asdf","sdf","dfd"),
+				new BankList_Model("2","CITI","adf","asdf","sdf","dfd"),
+				new BankList_Model("3","KOTAK","adf","asdf","sdf","dfd")
+		};
+		return list;
+	}
+	private static Fragment_Model getMyBanks()
+	{
+		Fragment_Model model=new Fragment_Model("My Banks",getBankList());
+		return model;
+	}
+	public static Fragment_Model getModel(int id)
+	{
+		Fragment_Model model;
+		if(id==2131624046)
+		{
+			model=getMyBanks();
+		}
+		else
+		{
+			model=getOtherBanks();
+		}
+		return model;
+	}
+	public static String getBankName(String id)
+	{
+		return "amoeba";
+	}
+	private static Fragment_Model getOtherBanks()
+	{
+		Fragment_Model model=new Fragment_Model("Other Banks",getOtherBankList());
+		return model;
+	}
+	public SQLiteHelper getDbHelper() {
+		return _dbHelper;
+	}	
+}
