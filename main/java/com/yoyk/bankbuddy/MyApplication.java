@@ -1,14 +1,19 @@
 package com.yoyk.bankbuddy;
 
 import android.app.Application;
+import android.database.Cursor;
 import android.util.Log;
 
+import com.yoyk.bankbuddy.Database.Database.DatabaseConstants;
 import com.yoyk.bankbuddy.model.BankList_Model;
 import com.yoyk.bankbuddy.model.Fragment_Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MyApplication extends Application {
 	private static final String TAG = MyApplication.class.getSimpleName(); 
-	private SQLiteHelper _dbHelper;
+	private static SQLiteHelper _dbHelper;
 
 	@Override
 	public void onCreate() {
@@ -36,9 +41,12 @@ public class MyApplication extends Application {
 	}
 	private static Fragment_Model getMyBanks()
 	{
-		Fragment_Model model=new Fragment_Model("My Banks",getBankList());
+		//Fragment_Model model=new Fragment_Model("My Banks",getBankList());
+		Object[] oarray=_dbHelper.getAllBanks().toArray();
+		Fragment_Model model=new Fragment_Model("My Banks", Arrays.copyOf(oarray,oarray.length,BankList_Model[].class) );
 		return model;
 	}
+
 	public static Fragment_Model getModel(int id)
 	{
 		Fragment_Model model;

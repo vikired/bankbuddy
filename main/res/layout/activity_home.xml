@@ -1,22 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
-    tools:context="com.yoyk.bankbuddy.Home">
-    <fragment
-        android:id="@+id/mybank"
-        android:name="com.yoyk.bankbuddy.MyBankFragment"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/grid_tile" />
-    <fragment
-        android:id="@+id/otherbanks"
-        android:name="com.yoyk.bankbuddy.MyBankFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mybank"
-        tools:layout="@layout/grid_tile" />
-</RelativeLayout>
+        android:baselineAligned="false"
+        android:divider="?android:attr/dividerHorizontal"
+        android:orientation="horizontal"
+        tools:context="com.yoyk.bankbuddy.Home">
+
+        <fragment
+                android:id="@+id/mybank"
+                android:name="com.yoyk.bankbuddy.MyBankFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:layout="@layout/grid_tile" />
+
+        <fragment
+            android:id="@+id/otherbanks"
+            android:name="com.yoyk.bankbuddy.MyBankFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mybank"
+            android:layout_weight="1"
+            tools:layout="@layout/grid_tile" />
+    </RelativeLayout>
+</ScrollView>
