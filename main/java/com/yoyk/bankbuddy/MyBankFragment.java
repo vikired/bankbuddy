@@ -61,7 +61,9 @@ public class MyBankFragment extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BankList_Model item=(BankList_Model)mBankListAdaptor.getItem(position);
-                intent.putExtra(EXTRA_MESSAGE, item.getBank_id());
+                Bundle b=new Bundle();
+                b.putParcelable(EXTRA_MESSAGE,item);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });

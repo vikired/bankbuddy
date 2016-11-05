@@ -1,6 +1,9 @@
 package com.yoyk.bankbuddy.model;
 
-public class BankList_Model {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BankList_Model implements Parcelable {
    private String bank_bank_logo;
    private String bank_care;
    private String bank_fav;
@@ -67,4 +70,36 @@ public class BankList_Model {
    public void setBank_name(String var1) {
       this.bank_name = var1;
    }
+
+   // Parcelling part
+   public BankList_Model(Parcel in){
+      String[] data = new String[6];
+
+      in.readStringArray(data);
+      this.bank_id = data[0];
+      this.bank_name = data[1];
+      this.bank_inquiry = data[2];
+      this.bank_care = data[3];
+      this.bank_fav = data[4];
+      this.bank_bank_logo = data[5];
+
+   }
+   @Override
+   public int describeContents() {
+      return 0;
+   }
+
+   @Override
+   public void writeToParcel(Parcel dest, int flags) {
+      dest.writeStringArray(new String[]{this.bank_id,this.bank_name,this.bank_inquiry,this.bank_care, this.bank_fav, this.bank_bank_logo});
+   }
+   public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+      public BankList_Model createFromParcel(Parcel in) {
+         return new BankList_Model(in);
+      }
+
+      public BankList_Model[] newArray(int size) {
+         return new BankList_Model[size];
+      }
+   };
 }

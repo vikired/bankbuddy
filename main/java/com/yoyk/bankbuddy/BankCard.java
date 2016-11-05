@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.yoyk.bankbuddy.model.BankList_Model;
+
 /**
  * Created by Viki on 11/3/2016.
  */
@@ -16,9 +18,12 @@ public class BankCard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bank_card);
         Intent intent = getIntent();
-        String message= intent.getStringExtra(MyBankFragment.EXTRA_MESSAGE);
-        TextView textView=(TextView) findViewById(R.id.bankbar);
-        textView.setText(MyApplication.getBankName(message)+message);
+        Bundle b=getIntent().getExtras();
+        if(b!=null) {
+            BankList_Model myBank=b.getParcelable(MyBankFragment.EXTRA_MESSAGE);
+            TextView textView = (TextView) findViewById(R.id.bankbar);
+            textView.setText(myBank.getBank_name());
+        }
     }
 
     @Override

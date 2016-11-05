@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class SQLiteHelper extends SQLiteOpenHelper implements DatabaseConstants {
 
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
 
     public SQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -37,8 +37,8 @@ public class SQLiteHelper extends SQLiteOpenHelper implements DatabaseConstants 
         insertData(db, "CITI", "18000000","911","1","sbi_logo");
         insertData(db, "ICICI", "18000000","911","0","sbi_logo");
         insertData(db, "IOB", "18000000","911","0","sbi_logo");
-        insertData(db, "KOTAK", "18000000","911","0","sbi_logo");
-        insertData(db, "MCC", "18000000","911","0","sbi_logo");
+  //      insertData(db, "KOTAK", "18000000","911","0","sbi_logo");
+//        insertData(db, "MCC", "18000000","911","0","sbi_logo");
 
     }
 
