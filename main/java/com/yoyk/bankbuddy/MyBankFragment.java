@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class MyBankFragment extends Fragment  {
     {
 
         //MyApplication myApp=new MyApplication();
-        Fragment_Model model=MyApplication.getModel(this.getId());
+        Fragment_Model model=MyApplication.getModel(this.getTag());
         View rootView = inflater.inflate(R.layout.grid_tile, container, false);
 
         mTextView=(TextView)rootView.findViewById(R.id.fragname);
@@ -55,18 +56,51 @@ public class MyBankFragment extends Fragment  {
         mBankListAdaptor=new BankListAdaptor(getActivity(),model.getBank_list());
         mListView = (ListView) rootView.findViewById(R.id.listbank);
         mListView.setAdapter(mBankListAdaptor);
+        setListViewHeightBasedOnChildren(mListView);
+
         final Intent intent = new Intent(this.getActivity(),BankCard.class);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BankList_Model item=(BankList_Model)mBankListAdaptor.getItem(position);
-                intent.putExtra(EXTRA_MESSAGE, item.getBank_id());
+                Bundle b=new Bundle();
+                b.putParcelable(EXTRA_MESSAGE,item);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
         return rootView;
     }
+    public static void setListViewHeightBasedOnChildren(ListView listView)
+    {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
 
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight=0;
+        View view = null;
+
+        for (int i = 0; i < listAdapter.getCount(); i++)
+        {
+            view = listAdapter.getView(i, view, listView);
+
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + ((listView.getDividerHeight()) * (listAdapter.getCount()));
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
 
 }
