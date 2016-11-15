@@ -28,7 +28,10 @@ public class MyApplication extends Application {
 				new BankList_Model("2","ICICI","adf","asdf","sdf","dfd"),
 				new BankList_Model("3","HDFC","adf","asdf","sdf","dfd")
 		};
+		Object[] oarray=_dbHelper.getAllBanks().toArray();
+		list=Arrays.copyOf(oarray,oarray.length,BankList_Model[].class);
 		return list;
+		//return list;
 	}
 	public static BankList_Model[] getOtherBankList()
 	{
@@ -47,10 +50,10 @@ public class MyApplication extends Application {
 		return model;
 	}
 
-	public static Fragment_Model getModel(int id)
+	public static Fragment_Model getModel(String tag)
 	{
 		Fragment_Model model;
-		if(id==2131624046)
+		if(tag.equals("mybank"))
 		{
 			model=getMyBanks();
 		}
